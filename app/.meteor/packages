@@ -19,3 +19,4 @@ ecmascript              # Enable ECMAScript2015+ syntax in app code
 aldeed:simple-schema
 blaze-html-templates
 react-meteor-data
+kadira:flow-router
