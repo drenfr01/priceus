@@ -1,5 +1,8 @@
-import { Mongo } from 'meteor/mongo';
+import { Meteor } from 'meteor/meteor';
 
-export const Prices = new Mongo.Collection('prices');
+import { Prices } from '../collections.js'
 
-// PricesSchema = new 
+
+Meteor.publish('allPrices', () => {
+  return Prices.find();
+})
