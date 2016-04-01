@@ -1,4 +1,4 @@
-import "../imports/startup/client/init.js"
+import "../imports/startup/client/routes.js"
 
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
