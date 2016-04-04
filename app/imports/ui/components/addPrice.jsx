@@ -3,10 +3,14 @@ import ReactDOM from 'react-dom'
 
 import { Prices } from '../../api/prices/collections.js'
 
-export class AddPrice extends Component {
+export const AddPrice = React.createClass({
+  getInitialState() {
+    return { submissionComplete: false };
+  },
+
   handleSubmit(event) {
     event.preventDefault();
-
+    const self = this;
     // Find the text field via the React ref
     const name = ReactDOM.findDOMNode(this.refs.name).value.trim();
     const price = ReactDOM.findDOMNode(this.refs.price).value.trim();
@@ -19,17 +23,23 @@ export class AddPrice extends Component {
       createdAt: new Date(), // current time
     }
 
-    Meteor.call('prices.insert', priceObject);
+    Meteor.call('prices.insert', priceObject, function (e, r) {
+      if(e === undefined) {
+        self.setState({ submissionComplete: true });
+      } else {
+        alert(e);
+      }
+    });
 
     // Clear form
     ReactDOM.findDOMNode(this.refs.name).value = '';
     ReactDOM.findDOMNode(this.refs.price).value = '';
     ReactDOM.findDOMNode(this.refs.location).value = '';
-  }
+  },
 
   render() {
     return (
-      <form className="new-price" onSubmit={this.handleSubmit.bind(this)} >
+      <form className="new-price" onSubmit={this.handleSubmit} >
         A
         <input
           autoFocus
@@ -40,6 +50,8 @@ export class AddPrice extends Component {
          costs
         <input
           type="number"
+          step="0.01"
+          min="0"
           ref="price"
           placeholder="3.50"
         />
@@ -49,16 +61,17 @@ export class AddPrice extends Component {
           ref="location"
           placeholder="Somerville"
         />
-        <input type="submit" value="Submit Price"/>
+        { !this.state.submissionComplete ? <input type="submit" value="Submit Price"/> : <input type="submit" value="Submit Price" disabled/> }
+        { this.state.submissionComplete ? <i className="fa fa-check"></i> : null }
       </form>
     );
-  }
-}
+  },
+});
 
 export const AddPriceLayout = ({content}) => (
     <div>
       <header>
-        Add a price for a
+        Price Submission Form
       </header>
       <main>
         {content}
