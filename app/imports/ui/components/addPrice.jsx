@@ -32,10 +32,10 @@ export class AddPrice extends Component {
       <form className="new-price" onSubmit={this.handleSubmit.bind(this)} >
         A
         <input
+          autoFocus
           type="text"
           ref="name"
           placeholder="coffee"
-          autofocus
         />
          costs
         <input
