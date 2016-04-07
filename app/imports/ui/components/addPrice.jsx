@@ -5,6 +5,33 @@ import { Prices } from '../../api/prices/collections.js'
 
 export const AddPrice = React.createClass({
   getInitialState() {
+    // TODO: this.state.prices maybe wants to be a list of price objects, e.g. {name, price, loc}
+    return { prices: [1] }
+  },
+
+  // This is a callback that gets passed down into the priceForm, when
+  // submission is complete, this fires and adds a new row
+  addNewPriceFormRow() {
+    const priceFormRows = this.state.prices,
+          highestKey = priceFormRows[priceFormRows.length - 1];
+    priceFormRows.push(highestKey + 1);
+    this.setState({ prices: priceFormRows });
+
+  },
+
+  render() {
+    priceForms = []
+    for (var priceForm of this.state.prices) {
+      priceForms.push(<AddPriceForm key={priceForm} submissionCompleteCallback={this.addNewPriceFormRow}/>)
+    }
+    return (
+      <div>{ priceForms }</div>
+    )
+  },
+});
+
+export const AddPriceForm = React.createClass({
+  getInitialState() {
     return { submissionComplete: false };
   },
 
@@ -26,15 +53,11 @@ export const AddPrice = React.createClass({
     Meteor.call('prices.insert', priceObject, function (e, r) {
       if(e === undefined) {
         self.setState({ submissionComplete: true });
+        self.props.submissionCompleteCallback();
       } else {
         alert(e);
       }
     });
-
-    // Clear form
-    ReactDOM.findDOMNode(this.refs.name).value = '';
-    ReactDOM.findDOMNode(this.refs.price).value = '';
-    ReactDOM.findDOMNode(this.refs.location).value = '';
   },
 
   render() {
@@ -69,12 +92,12 @@ export const AddPrice = React.createClass({
 });
 
 export const AddPriceLayout = ({content}) => (
-    <div>
-      <header>
-        Price Submission Form
-      </header>
-      <main>
-        {content}
-      </main>
-    </div>
+  <div>
+    <header>
+      Price Submission Form
+    </header>
+    <main>
+      {content}
+    </main>
+  </div>
 );

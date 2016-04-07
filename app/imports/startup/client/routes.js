@@ -17,7 +17,7 @@ import {AddPriceLayout, AddPrice} from '../../ui/components/addPrice.jsx';
 FlowRouter.route("/add-price", {
   action() {
     mount(AddPriceLayout, {
-      content: (<AddPrice name="Tyler"/>)
+      content: (<AddPrice />)
     });
   }
 });
