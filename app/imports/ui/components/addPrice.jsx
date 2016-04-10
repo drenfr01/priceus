@@ -5,7 +5,7 @@ import { Prices } from '../../api/prices/collections.js'
 
 export const AddPrice = React.createClass({
   getInitialState() {
-    // TODO: this.state.prices maybe wants to be a list of price objects, e.g. {name, price, loc}
+    // TODO: this.state.prices maybe wants to be a list of price objects, e.g. {name, price, loc}, I think this gives us the ability to save entries on reload and fun stuff like that
     return { prices: [1] }
   },
 
