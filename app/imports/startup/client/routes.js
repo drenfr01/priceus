@@ -17,7 +17,7 @@ FlowRouter.route("/", {
 FlowRouter.route("/add-price", {
   action() {
     mount(AddPriceLayout, {
-      content: (<AddPrice/>)
+      content: (<AddPrice />)
     });
   }
 });
