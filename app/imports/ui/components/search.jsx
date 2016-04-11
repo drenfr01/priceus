@@ -33,7 +33,7 @@ export const SearchLayout = React.createClass({
           <input type="text" name="search"
             onChange={this.setSearch}></input>
         </div>
-        <div><Search prices={this.data.prices} /></div>
+        <SearchResults prices={this.data.prices} />
       </div>
     )
   }
@@ -41,7 +41,7 @@ export const SearchLayout = React.createClass({
 
 //Dumb component
 //TODO: separate out a price, price results, search, price graph?
-export const Search = React.createClass({
+export const SearchResults = React.createClass({
 
   //TODO: put event handlers here and attach them to html
   //approach is to define reactive var and then update it
@@ -50,7 +50,7 @@ export const Search = React.createClass({
 
   renderPrice(price, index) {
     return (
-      <PriceResult name={ price.name } price={ price.price } />
+      <PriceResult price={ price } key={ index } />
     )
   },
 
@@ -65,12 +65,17 @@ export const Search = React.createClass({
   }
 });
 
-export const PriceResult = React.createClass({
+const PriceResult = React.createClass({
+  // TODO: I think this should get pulled out into a UI helpers class
+  formatCurrency(number) {
+    return parseFloat(number).toFixed(2);
+  },
+
   render() {
     return (
-      <div>
-        <h2>{ this.props.name }</h2>
-        <p>{ this.props.price }</p>
+      <div key={ this.props.price.key }>
+        <h2>{ this.props.price.name } in { this.props.price.location }</h2>
+        <p>$ { this.formatCurrency(this.props.price.price) }</p>
       </div>
     )
   }

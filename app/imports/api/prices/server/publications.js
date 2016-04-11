@@ -7,11 +7,11 @@ Meteor.publish('allPrices', () => {
   return Prices.find();
 });
 
-Meteor.publish('searchPrices', (name, limit, skip) => {
+Meteor.publish('searchPrices', (searchTerm, limit, skip) => {
   check(limit, Match.Integer);
   check(skip, Match.Integer);
 
-  var selector = name ? {name: {$regex: name, $options: "i" } } : {};
+  const selector = searchTerm ? {name: {$regex: searchTerm, $options: "i" } } : { _id: 0 };
 
   return Prices.find(selector);
 });
