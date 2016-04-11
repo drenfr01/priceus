@@ -29,10 +29,12 @@ export const SearchLayout = React.createClass({
       <div>
         <h1>Search Prices</h1>
         <hr />
-        <div>
-          <input type="text" name="search"
-            onChange={this.setSearch}></input>
-        </div>
+        <form>
+          How much does a
+          <input autoFocus type="text" placeholder="Coffee" onChange={this.setSearch} />
+          cost in
+          <input type="text" placeholder="Somerville" />?
+        </form>
         <SearchResults prices={this.data.prices} />
       </div>
     )
