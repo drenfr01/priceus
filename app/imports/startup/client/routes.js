@@ -9,7 +9,7 @@ import {AddPriceLayout, AddPrice} from '../../ui/components/addPrice.jsx';
 FlowRouter.route("/", {
   action() {
     mount(SearchLayout, {
-      content: (<Search/>)
+      content: (<Search />)
     });
   }
 });

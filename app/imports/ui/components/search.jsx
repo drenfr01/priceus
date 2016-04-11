@@ -25,13 +25,12 @@ export const SearchLayout = React.createClass({
   },
 
   render() {
-
     return (
       <div>
         <h1>Search Prices</h1>
         <hr />
         <div>
-          <input type="text" name="search" 
+          <input type="text" name="search"
             onChange={this.setSearch}></input>
         </div>
         <div><Search prices={this.data.prices} /></div>
@@ -46,20 +45,18 @@ export const Search = React.createClass({
 
   //TODO: put event handlers here and attach them to html
   //approach is to define reactive var and then update it
-  //on the event function. Then we use the reactive data 
+  //on the event function. Then we use the reactive data
   //context in getMeteorData to pass it to publication
 
   renderPrice(price, index) {
     return (
-      <div className="price" key={index}>
-        <h1>{price.name}</h1>
-      </div>
+      <PriceResult name={ price.name } price={ price.price } />
     )
   },
 
   render() {
-    //TODO: unlike blaze, we put capture element directly into 
-    //html then handle it 
+    //TODO: unlike blaze, we put capture element directly into
+    //html then handle it
     return (
       <div>
         {this.props.prices.map(this.renderPrice)}
@@ -68,3 +65,13 @@ export const Search = React.createClass({
   }
 });
 
+export const PriceResult = React.createClass({
+  render() {
+    return (
+      <div>
+        <h2>{ this.props.name }</h2>
+        <p>{ this.props.price }</p>
+      </div>
+    )
+  }
+})

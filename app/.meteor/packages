@@ -21,3 +21,4 @@ blaze-html-templates
 react-meteor-data
 kadira:flow-router
 check
+aldeed:collection2

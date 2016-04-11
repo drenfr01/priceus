@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor'
 import { Mongo } from 'meteor/mongo';
 import { Check } from 'meteor/check';
+import { SimpleSchema } from 'meteor/aldeed:simple-schema'
 
 export const Prices = new Mongo.Collection('prices');
 
@@ -13,3 +14,22 @@ Meteor.methods({
     Prices.insert(priceObject);
   },
 });
+
+const priceSchema = new SimpleSchema({
+  name: {
+    type: String,
+  },
+  price: {
+    type: Number,
+    decimal: true,
+  },
+  location: {
+    type: String,
+  },
+  createdAt: {
+    type: Date,
+    defaultValue: new Date(),
+  },
+});
+
+Prices.attachSchema(priceSchema);
